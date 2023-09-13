@@ -1,6 +1,11 @@
 let userScore = 0;
 let puterScore = 0;
 let playerChoice;
+const content = document.querySelector('.content');
+const userScoreDisplay = document.querySelector('#userScore');
+const puterScoreDisplay = document.querySelector('#puterScore');
+const currentScore = document.createElement('h1');
+const currentPuterChoice = document.querySelector('#computerChoice')
 
 
 
@@ -8,25 +13,34 @@ function game(choice) {
     if(choice && userScore || puterScore < 5){
             let newComputerChoice = getComputerChoice();
             let round = playRound(choice, newComputerChoice);
-            console.log(`Computron picks ${newComputerChoice}`);
+            currentPuterChoice.textContent = `Computron picks ${newComputerChoice}`;
             if(round.includes('player wins')) {
                 userScore++
+                userScoreDisplay.textContent = userScore;
             } else if(round.includes('computer wins')) {
-                puterScore++
+                puterScore++;
+                puterScoreDisplay.textContent = puterScore;
             } else if(round.includes('tie')) {
                 puterScore++
                 userScore++
+                userScoreDisplay.textContent = userScore;
+                puterScoreDisplay.textContent = puterScore;
             }
             if(userScore == 5){
-                console.log('You won!')
+                currentScore.textContent = 'You Win!'
+                content.append(currentScore);
             }
             else if(puterScore == 5) {
-                console.log('You lose!')
+                currentScore.textContent = 'You Lose!'
+                content.append(currentScore);
             }
             else if(puterScore && userScore == 5) {
-                console.log('You tied!')
+                currentScore.textContent = 'Tie!'
+                content.append(currentScore);
             } else {
-                console.log(`${round} The score is ${userScore} to ${puterScore}`);
+                console.log();
+                currentScore.textContent = `${round} The score is ${userScore} to ${puterScore}`
+                content.append(currentScore);
             }
   
     }
